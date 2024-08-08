@@ -127,7 +127,7 @@ export const appTemplate = html`
           )}
           <ppp-side-nav-group>
             <span slot="start">${html.partial(trading)}</span>
-            <span slot="title">Торговля</span>
+            <span slot="title">Торговля!!!</span>
             <a
               href="?page=widgets"
               @click="${(x) =>
