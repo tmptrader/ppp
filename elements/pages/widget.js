@@ -362,6 +362,13 @@ export const widgetPageTemplate = html`
                           </ppp-widget-type-radio>
                           <ppp-widget-type-radio
                             ?disabled="${(x) =>
+                              x.document._id && x.document.type !== 'arbitration'}"
+                            value="tcc"
+                          >
+                            <span slot="text">Арбитраж</span>
+                          </ppp-widget-type-radio>
+                          <ppp-widget-type-radio
+                            ?disabled="${(x) =>
                               x.document._id && x.document.type !== 'custom'}"
                             value="custom"
                           >
