@@ -1,38 +1,38 @@
 /** @decorator */
 
-// 1️⃣  Колонки, которые увидит PPP
+// ─── 1. Колонки ────────────────────────────────────────────────────────
 const DEFAULT_COLUMNS = [
   { source: 'symbol',         name: 'Тикер' },
   { source: 'formattedValue', name: 'Цена',  valueKey: 'price',  highlightChanges: true },
   { source: 'formattedValue', name: 'Объём', valueKey: 'volume' }
 ];
 
-// 2️⃣  Экспорт «listDefinition» —- это ровно то, что ищет PPP
+// ─── 2. listDefinition, которое ждёт PPP ───────────────────────────────
 export async function listDefinition() {
   return {
-    defaultColumns: DEFAULT_COLUMNS,   // обязателен
-    pagination:      false,            // можно опустить
-    extraControls:   null,
+    defaultColumns: DEFAULT_COLUMNS,
+
+    // Контроллёр списка
     control: class {
-      timer;
+      #timer;
 
+      // PPP вызовет это сразу после создания колонок
       async connectedCallback(widget) {
-        // простая демка: каждую секунду добавляем строку
-        const tickers = ['AAPL', 'MSFT', 'NVDA', 'GOOGL'];
+        const TICKERS = ['AAPL', 'MSFT', 'NVDA', 'GOOGL'];
 
-        this.timer = setInterval(() => {
+        this.#timer = setInterval(() => {
           widget.appendRow({
-            symbol: tickers[Math.random()*tickers.length|0],
+            symbol: TICKERS[Math.random() * TICKERS.length | 0],
             values: {
-              price:  +(Math.random()*300 + 50).toFixed(2),
-              volume: Math.floor(Math.random()*10_000)
+              price:  +(Math.random() * 300 + 50).toFixed(2),
+              volume: Math.floor(Math.random() * 10_000)
             }
           });
-        }, 1000);
+        }, 1_000);
       }
 
       async disconnectedCallback() {
-        clearInterval(this.timer);
+        clearInterval(this.#timer);
       }
     }
   };
